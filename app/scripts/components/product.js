@@ -52,16 +52,15 @@ class Product extends Component {
             return <div>Loading ...</div>
         }else{
             var _data = products.hits.hits;
-            console.log(_data);
             return(
                 <div>
                     <ol>
                         {
                             _data.map(product => (
-                                <li key={product.id} align="start">
+                                <li key={product._source.id} align="start">
                                     <div>
-                                        <p>{product.name}</p>
-                                        <p>{product.about}</p>
+                                        <p>{product._source.name}</p>
+                                        <p>{product._source.about}</p>
                                     </div>
                                 </li>
                             ))

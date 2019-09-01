@@ -3,7 +3,7 @@
  * 
  */
 import React, { Component } from 'react';
-import GetOnlinePosts from './components/Product';
+import Product from "./product";
 
 class Menu extends Component {
 
@@ -92,6 +92,7 @@ class Menu extends Component {
                     <a href="#" onClick={(e) => this.showSearchContainer(e)}>
                         <i className="material-icons close">close</i>
                     </a>
+                    <Product/>
                 </div>
             </header>
         );
