@@ -1,44 +1,53 @@
-/**
- * The Server Can be configured and created here...
- * 
- * You can find the JSON Data file here in the Data module. Feel free to impliment a framework if needed.
- */
 
-/*
--- This is the product data, you can view it in the file itself for more details 
-{
-    "_id": "019",
-    "isActive": "false",
-    "price": "23.00",
-    "picture": "/img/products/N16501_430.png",
-    "name": "Damage Reverse Thickening Conditioner",
-    "about": "Dolor voluptate velit consequat duis. Aute ad officia fugiat esse anim exercitation voluptate excepteur pariatur sit culpa duis qui esse. Labore amet ad eu veniam nostrud minim labore aliquip est sint voluptate nostrud reprehenderit. Ipsum nostrud culpa consequat reprehenderit.",
-    "tags": [
-        "ojon",
-        "conditioner"
-    ]
-}
-*/
-const data      = require('./data');
-const http      = require('http');
+//npm install express --save
+//npm install request
+//npm install cors
+//npm install body-parser --save
+
+const express = require('express');
+const request = require('request');
+const bodyParser = require("body-parser");
+const cors = require('cors');
+const app = express();
 const hostname  = 'localhost';
 const port      = 3035;
-
-/** 
- * Start the Node Server Here...
- * 
- * The http.createServer() method creates a new server that listens at the specified port.  
- * The requestListener function (function (req, res)) is executed each time the server gets a request. 
- * The Request object 'req' represents the request to the server.
- * The ServerResponse object 'res' represents the writable stream back to the client.
- */
-http.createServer(function (req, res) {
-    // .. Here you can create your data response in a JSON format
-    
-    
-    res.write("Response goes in here..."); // Write out the default response
-    res.end(); //end the response
-}).listen( port );
+const elasticUrl = 'http://52.56.125.231:9200'; // elasticsearch data service based on EC2
 
 
-console.log(`[Server running on ${hostname}:${port}]`);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
+
+app.get('/', function (req, res) {
+    res.send(`Server running on ${hostname}:${port}`);
+});
+
+app.post('/search', function (req, res) {
+
+    request({
+        headers: {'content-type' : 'application/json'},
+        body :JSON.stringify(req.body),
+        uri: elasticUrl+'/products/_search',
+        method: 'POST'
+    },
+        function(error, response, body) {
+            if (!error && response.statusCode === 200) {
+                res.send(body);
+            } else {
+                console.log(error);
+            }
+        });
+
+});
+
+app.listen(port, function (err) {
+    console.log("WEB project is started to " + port + " port")
+    if (err) {
+        console.log(err);
+    }
+});
+
+
+
+
+

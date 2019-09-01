@@ -7,11 +7,17 @@
     "type": "git",
     "url": ""
   },
-  "dependencies": {},
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "request": "^2.88.0"
+  },
   "scripts": {
-    "servers": "NODE_ENV=development gulp watch",
-    "dev-server":"NODE_ENV=development gulp dev_server",
-    "node-server": "NODE_ENV=development nodemon server/app.js",
+    "servers": "SET NODE_ENV=development & gulp watch",
+    "dev-server": "SET NODE_ENV=development gulp dev_server",
+    "node-server": "SET NODE_ENV=development & nodemon server/app.js",
     "prod": "NODE_ENV=production gulp prod",
     "dev-tests": "NODE_ENV=development gulp tests",
     "image-min": "NODE_ENV=development gulp images",
@@ -32,7 +38,7 @@
     "@babel/preset-react": "^7.0.0-beta.36",
     "babel-loader": "8.0.0-beta.0",
     "babel-preset-react": "^6.24.1",
-    "browser-sync": "^2.26.3",
+    "browser-sync": "^2.26.7",
     "gulp": "3.9.1",
     "gulp-autoprefixer": "4.0.0",
     "gulp-git": "^2.5.0",
