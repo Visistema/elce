@@ -2,9 +2,10 @@
  * This file will hold the Menu that lives at the top of the Page, this is all rendered using a React Component...
  * 
  */
-import React from 'react';
+import React, { Component } from 'react';
+import GetOnlinePosts from './components/Product';
 
-class Menu extends React.Component {
+class Menu extends Component {
 
     /**
      * Main constructor for the Menu Class
@@ -38,8 +39,25 @@ class Menu extends React.Component {
         
         // Start Here
         // ...
-        
-
+        let txtSearch = document.getElementById("txtSearch").value;
+        if(txtSearch.length>2) {
+            fetch('http://localhost:3035/search', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "query": {
+                        "query_string": {
+                            "query": txtSearch + "*",
+                            "fields": ["name", "about", "tags", "price"]
+                        }
+                    }
+                })
+            })
+                .then(response => console.log(response.json()));
+        }
     }
 
     /**
@@ -70,7 +88,7 @@ class Menu extends React.Component {
                     </div>
                 </div>
                 <div className={(this.state.showingSearch ? "showing " : "") + "search-container"}>
-                    <input type="text" onChange={(e) => this.onSearch(e)} />
+                    <input id="txtSearch" type="text" onChange={(e) => this.onSearch(e)} />
                     <a href="#" onClick={(e) => this.showSearchContainer(e)}>
                         <i className="material-icons close">close</i>
                     </a>
