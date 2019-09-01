@@ -20,7 +20,7 @@ class Product extends Component {
             body: JSON.stringify({
                 "query": {
                     "query_string": {
-                        "query": "*",
+                        "query": this.props.input+"*",
                         "fields": ["name", "about", "tags", "price"]
                     }
                 }
@@ -60,8 +60,7 @@ class Product extends Component {
                                 <li key={product._source.id} align="start">
                                     <div>
                                         <p>{product._source.name}</p>
-                                        <p>{product._source.about}</p>
-                                    </div>
+                                   </div>
                                 </li>
                             ))
                         }

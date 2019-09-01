@@ -14,7 +14,8 @@ class Menu extends Component {
     constructor() {
         super();
         this.state = {
-            showingSearch: false
+            showingSearch: false,
+            input: "",
         };
     }
 
@@ -39,24 +40,12 @@ class Menu extends Component {
         
         // Start Here
         // ...
+
         let txtSearch = document.getElementById("txtSearch").value;
         if(txtSearch.length>2) {
-            fetch('http://localhost:3035/search', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    "query": {
-                        "query_string": {
-                            "query": txtSearch + "*",
-                            "fields": ["name", "about", "tags", "price"]
-                        }
-                    }
-                })
-            })
-                .then(response => console.log(response.json()));
+            this.setState({
+                input: txtSearch
+            });
         }
     }
 
@@ -92,8 +81,8 @@ class Menu extends Component {
                     <a href="#" onClick={(e) => this.showSearchContainer(e)}>
                         <i className="material-icons close">close</i>
                     </a>
-                    <Product/>
-                </div>
+                    <Product input={this.state.input} />
+               </div>
             </header>
         );
     }
