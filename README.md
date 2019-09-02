@@ -109,9 +109,9 @@ The data in the data.js file uses the following JSON Schema:
 
 ## development guide
 
-npm install express --save
-npm install request
-npm install cors
+npm install express --save 
+npm install request 
+npm install cors 
 npm install body-parser --save
 
 1. elasticsearch is setup on AWS EC2
