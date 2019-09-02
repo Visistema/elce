@@ -106,3 +106,14 @@ The data in the data.js file uses the following JSON Schema:
 * Please DELETE the node_modules folder prior to sending your code for review
 * Don't forget to include CSS/SCSS styling
 * If any additional commands  are necessary to run your code, please make sure this is documented
+
+## development guide
+1. elasticsearch is setup on AWS EC2
+2. Data is loaded to the elasticsearch
+3. Backend server is developed by using nodejs
+4. Frontend is developed by using react
+
+Note : I am querying the data using this endpoint called http://52.56.125.231:9200 based on EC2
+
+
+
