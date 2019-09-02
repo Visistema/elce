@@ -47,6 +47,11 @@ class Menu extends Component {
                 input: txtSearch
             });
         }
+        else {
+            this.setState({
+                input: ""
+            });
+        }
     }
 
     /**
