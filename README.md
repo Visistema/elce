@@ -108,6 +108,12 @@ The data in the data.js file uses the following JSON Schema:
 * If any additional commands  are necessary to run your code, please make sure this is documented
 
 ## development guide
+
+npm install express --save
+npm install request
+npm install cors
+npm install body-parser --save
+
 1. elasticsearch is setup on AWS EC2
 2. Data is loaded to the elasticsearch
 3. Backend server is developed by using nodejs
