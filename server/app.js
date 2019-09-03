@@ -3,6 +3,7 @@
 //npm install request
 //npm install cors
 //npm install body-parser --save
+//npm install --save react react-debounce-input
 
 const express = require('express');
 const request = require('request');

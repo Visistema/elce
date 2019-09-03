@@ -113,6 +113,7 @@ npm install express --save
 npm install request 
 npm install cors 
 npm install body-parser --save
+npm install --save react react-debounce-input
 
 1. elasticsearch is setup on AWS EC2
 2. Data is loaded to the elasticsearch
