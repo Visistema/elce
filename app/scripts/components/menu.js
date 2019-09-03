@@ -4,6 +4,7 @@
  */
 import React, { Component } from 'react';
 import Product from "./product";
+import {DebounceInput} from 'react-debounce-input';
 
 class Menu extends Component {
 
@@ -11,8 +12,8 @@ class Menu extends Component {
      * Main constructor for the Menu Class
      * @memberof Menu
      */
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             showingSearch: false,
             input: "",
@@ -31,6 +32,8 @@ class Menu extends Component {
         });
     }
 
+
+
     /**
      * Calls upon search change
      * @memberof Menu
@@ -41,17 +44,10 @@ class Menu extends Component {
         // Start Here
         // ...
 
-        let txtSearch = document.getElementById("txtSearch").value;
-        if(txtSearch.length>2) {
             this.setState({
-                input: txtSearch
+                input: e.target.value
             });
-        }
-        else {
-            this.setState({
-                input: ""
-            });
-        }
+
     }
 
     /**
@@ -82,7 +78,11 @@ class Menu extends Component {
                     </div>
                 </div>
                 <div className={(this.state.showingSearch ? "showing " : "") + "search-container"}>
-                    <input id="txtSearch" type="text" onChange={(e) => this.onSearch(e)} />
+                    <DebounceInput
+                        id="txtSearch" type="text"
+                        minLength={3}
+                        debounceTimeout={300}
+                        onChange={(e) => this.onSearch(e)} />
                     <a href="#" onClick={(e) => this.showSearchContainer(e)}>
                         <i className="material-icons close">close</i>
                     </a>
