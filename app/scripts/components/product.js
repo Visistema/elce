@@ -70,7 +70,7 @@ class Product extends Component {
                     <ol>
                         {
                             _data.map(product => (
-                                <li>
+                                <li key={product._source.id} align="start">
                                      <div>
                                         <img src={product._source.picture}  width="30" height="30"/>
                                     </div>
