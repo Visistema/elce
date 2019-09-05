@@ -7,8 +7,7 @@ class Product extends Component {
         this.state = {
             error : null,
             isLoaded : false,
-            products : [],
-            input: ""
+            products : []
         };
     }
     fetchProducData(){
@@ -16,7 +15,7 @@ class Product extends Component {
             isLoaded: false,
             products: ""
         });
-        if (this.state.input) {
+        if (this.props.input) {
             fetch('http://localhost:3035/search', {
                 method: 'POST',
                 headers: {
@@ -26,7 +25,7 @@ class Product extends Component {
                 body: JSON.stringify({
                     "query": {
                         "query_string": {
-                            "query": this.state.input + "*",
+                            "query": this.props.input + "*",
                             "fields": ["name", "about", "tags", "price"]
                         }
                     }
@@ -52,9 +51,8 @@ class Product extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps){
+    componentDidUpdate(nextProps){
         if (this.props.input!=nextProps.input) {
-            this.state.input = nextProps.input;
             this.fetchProducData();
         }
     }

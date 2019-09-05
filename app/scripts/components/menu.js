@@ -81,7 +81,7 @@ class Menu extends Component {
                     <DebounceInput
                         id="txtSearch" type="text"
                         minLength={3}
-                        debounceTimeout={300}
+                        debounceTimeout={800}
                         onChange={(e) => this.onSearch(e)} />
                     <a href="#" onClick={(e) => this.showSearchContainer(e)}>
                         <i className="material-icons close">close</i>
