@@ -120,7 +120,7 @@ npm install --save react react-debounce-input
 3. Backend server is developed by using nodejs
 4. Frontend is developed by using react
 
-Note : I am querying the data using this endpoint called http://52.56.125.231:9200 based on EC2
+Note : I am querying the data using this endpoint called http://52.56.125.231:9200 based on EC2 (AWS Cloud)
 
 
 
