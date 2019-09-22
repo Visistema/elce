@@ -23,12 +23,7 @@ class Product extends Component {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    "query": {
-                        "query_string": {
-                            "query": this.props.input + "*",
-                            "fields": ["name", "about", "tags", "price"]
-                        }
-                    }
+                    "query": this.props.input
                 })
             })
                 .then(response => response.json())
@@ -64,18 +59,17 @@ class Product extends Component {
         }else if (!isLoaded) {
             return <div></div>
         }else{
-            var _data = products.hits.hits;
             return(
                 <div>
                     <ol>
                         {
-                            _data.map(product => (
-                                <li key={product._source.id} align="start">
+                            products.map(product => (
+                                <li key={product.id} align="start">
                                      <div>
-                                        <img src={product._source.picture}  width="30" height="30"/>
+                                        <img src={product.picture}  width="30" height="30"/>
                                     </div>
                                     <div>
-                                        <p>{product._source.name}</p>
+                                        <p>{product.name}</p>
                                     </div>
 
 

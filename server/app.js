@@ -1,43 +1,39 @@
-
-//npm install express --save
-//npm install request
-//npm install cors
-//npm install body-parser --save
-//npm install --save react react-debounce-input
-
 const express = require('express');
-const request = require('request');
 const bodyParser = require("body-parser");
 const cors = require('cors');
+const MiniSearch = require('minisearch');
+let data = require('./data');
 const app = express();
 const hostname  = 'localhost';
 const port      = 3035;
-const elasticUrl = 'http://52.56.125.231:9200'; // elasticsearch data service based on EC2
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+
+
+let miniSearch  = new MiniSearch({
+    fields: ['id','name', 'about','price','tags'], // fields to index for full-text search
+    storeFields: ['name','picture'], // fields to return with search results
+    extractField: (document, fieldName) => {
+        // Access nested fields
+        const value = fieldName.split('.').reduce((doc, key) => doc && doc[key], document)
+        // If field value is an array, join by space
+        return Array.isArray(value) ? value.join(' ') : value
+    }
+})
+
+data = JSON.parse(JSON.stringify(data).split('"_id":').join('"id":'));
+miniSearch .addAll(data);
+
 
 app.get('/', function (req, res) {
     res.send(`Server running on ${hostname}:${port}`);
 });
 
 app.post('/search', function (req, res) {
-
-    request({
-        headers: {'content-type' : 'application/json'},
-        body :JSON.stringify(req.body),
-        uri: elasticUrl+'/products/_search',
-        method: 'POST'
-    },
-        function(error, response, body) {
-            if (!error && response.statusCode === 200) {
-                res.send(body);
-            } else {
-                console.log(error);
-            }
-        });
+    let result = miniSearch .search(req.body.query, { prefix: true });
+    res.send( result);
 
 });
 

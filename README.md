@@ -107,20 +107,16 @@ The data in the data.js file uses the following JSON Schema:
 * Don't forget to include CSS/SCSS styling
 * If any additional commands  are necessary to run your code, please make sure this is documented
 
-## development guide
+## development install guide
 
-npm install express --save 
+npm install express
 npm install request 
 npm install cors 
-npm install body-parser --save
+npm install body-parser
 npm install --save react react-debounce-input
+npm install minisearch
 
-1. elasticsearch is setup on AWS EC2
-2. Data is loaded to the elasticsearch
-3. Backend server is developed by using nodejs
-4. Frontend is developed by using react
 
-Note : I am querying the data using this endpoint called http://52.56.125.231:9200 based on EC2 (AWS Cloud)
 
 
 
