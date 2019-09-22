@@ -110,7 +110,6 @@ The data in the data.js file uses the following JSON Schema:
 ## development install guide
 
 npm install express
-npm install request 
 npm install cors 
 npm install body-parser
 npm install --save react react-debounce-input
