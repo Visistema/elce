@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const cors = require('cors');
-const MiniSearch = require('minisearch');
+const minisearch = require('minisearch');
 let data = require('./data');
 const app = express();
 const hostname  = 'localhost';
@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 
-let miniSearch  = new MiniSearch({
+let index  = new minisearch({
     fields: ['id','name', 'about','price','tags'], // fields to index for full-text search
     storeFields: ['name','picture'], // fields to return with search results
     extractField: (document, fieldName) => {
@@ -24,7 +24,7 @@ let miniSearch  = new MiniSearch({
 })
 
 data = JSON.parse(JSON.stringify(data).split('"_id":').join('"id":'));
-miniSearch .addAll(data);
+index .addAll(data);
 
 
 app.get('/', function (req, res) {
@@ -32,7 +32,7 @@ app.get('/', function (req, res) {
 });
 
 app.post('/search', function (req, res) {
-    let result = miniSearch .search(req.body.query, { prefix: true });
+    let result = index .search(req.body.query, { prefix: true });
     res.send( result);
 
 });
